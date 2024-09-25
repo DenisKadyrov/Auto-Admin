@@ -1,0 +1,68 @@
+#!/bin/bash
+folder="/etc/auto-admin"
+# $folder/interfaces.sh
+echo "
+   ▄████████ ███    █▄      ███      ▄██████▄                ▄████████ ████████▄    ▄▄▄▄███▄▄▄▄    ▄█  ███▄▄▄▄   
+  ███    ███ ███    ███ ▀█████████▄ ███    ███               ███    ███ ███   ▀███ ▄██▀▀▀███▀▀▀██▄ ███  ███▀▀▀██▄ 
+  ███    ███ ███    ███    ▀███▀▀██ ███    ███               ███    ███ ███    ███ ███   ███   ███ ███▌ ███   ███ 
+  ███    ███ ███    ███     ███   ▀ ███    ███   ██████      ███    ███ ███    ███ ███   ███   ███ ███▌ ███   ███ 
+▀███████████ ███    ███     ███     ███    ███    ██████   ▀███████████ ███    ███ ███   ███   ███ ███▌ ███   ███ 
+  ███    ███ ███    ███     ███     ███    ███               ███    ███ ███    ███ ███   ███   ███ ███  ███   ███ 
+  ███    ███ ███    ███     ███     ███    ███               ███    ███ ███   ▄███ ███   ███   ███ ███  ███   ███ 
+  ███    █▀  ████████▀     ▄████▀    ▀██████▀                ███    █▀  ████████▀   ▀█   ███   █▀  █▀    ▀█   █▀  
+"
+echo "Над программой работали: Noma2D, Behemoth и Mikhoel"
+echo "Программа Auto-Admin предназначена для первичной настройки сервера под управлением Astra Linux. 
+В текущий набор инструментов входят следующие функции: DDNS, SSH-server по ключам, OpenVPN."
+echo "Версия билда: beta v.2.1 от 24.09.23"
+while $true; do
+  read -p ">> " command
+  case $command in
+    DDNS | ddns)
+      $folder/ddns.sh
+      ;;
+    SSH | ssh)
+      $folder/sshd.sh
+      ;;
+    OVPN| ovpn)
+      $folder/ovpn.sh
+      ;;
+    FireWall | firewall)
+      $folder/fire.sh
+      ;;
+    UserCreate | usercreate)
+      $folder/usercreate.sh
+      ;;
+    QuickInstall | quickinstall)
+      $folder/quickinstall.sh
+      ;;
+    Status | status)
+      $folder/status.sh
+      ;;
+    FreeIpa | freeIpa | freeipa)
+      $folder/freeipa.sh
+      ;;
+    monitoring | Monitoring)
+      "./monitoring-system/start.sh"
+      ;;
+    help)
+      echo "Список доступных команд:
+      DDNS - настройка Dynamic DNS в соотвествии с вашими параметрами
+      SSH - Настройка SSH-сервера с доступом по ключам
+      OVPN - Настройка туннеля OpenVPN
+      FireWall - Стандартная настройка FireWall
+      FreeIpa - утилита контроллера домена
+      UserCreate - Создание нового пользователя
+      QuickInstall - Быстрая установка утилит из набора необходимых
+      Status - Вывод статуса всех основных сервисов
+      Monitoring - Запуск мониторинга
+      exit - используется для выхода из программы"
+      ;;
+    exit)
+      break
+      ;;
+    *)
+      echo "Неизвестная команда. Для получения справки напишите help"
+      ;;
+  esac
+done
